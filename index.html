@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic 3D Image Gallery</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+    <div class="banner">
+        <div class="center-image">
+            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=600&fit=crop&crop=center"
+                alt="Nature Tree">
+        </div>
+        <div class="slider">
+            <div class="item" style="--i: 1" data-title="Urban Architecture"
+                data-description="Modern cityscape showcasing contemporary architectural design and urban development with stunning glass facades."
+                data-url="https://bdthemes.com/">
+                <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=600&fit=crop"
+                    alt="Urban Architecture">
+            </div>
+            <div class="item" style="--i: 2" data-title="City Streets"
+                data-description="Dynamic street photography capturing the essence of urban life and movement in the heart of the city."
+                data-url="https://www.elementpack.pro/">
+                <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=600&fit=crop"
+                    alt="City Streets">
+            </div>
+            <div class="item" style="--i: 3" data-title="Metropolitan Views"
+                data-description="Breathtaking metropolitan skyline showcasing the grandeur and scale of modern urban landscapes."
+                data-url="https://pixelgallery.pro/">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=600&fit=crop"
+                    alt="Metropolitan Views">
+            </div>
+            <div class="item" style="--i: 4" data-title="Architectural Details"
+                data-description="Intricate architectural details highlighting the craftsmanship and design elements of modern buildings."
+                data-url="https://bdthemes.com/">
+                <img src="https://images.unsplash.com/photo-1475855581690-80accde3ae2b?w=400&h=600&fit=crop"
+                    alt="Architectural Details">
+            </div>
+            <div class="item" style="--i: 5" data-title="Urban Landscape"
+                data-description="Expansive urban landscape photography capturing the beauty and complexity of city environments."
+                data-url="https://www.elementpack.pro/">
+                <img src="https://images.unsplash.com/photo-1475855581690-80accde3ae2b?w=400&h=600&fit=crop"
+                    alt="Urban Landscape">
+            </div>
+            <div class="item" style="--i: 6" data-title="City Perspectives"
+                data-description="Unique perspectives of city life showcasing different angles and viewpoints of urban environments."
+                data-url="https://pixelgallery.pro/">
+                <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=600&fit=crop"
+                    alt="City Perspectives">
+            </div>
+            <div class="item" style="--i: 7" data-title="Modern Design"
+                data-description="Contemporary architectural design elements that define the aesthetic of modern urban development."
+                data-url="https://bdthemes.com/">
+                <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=600&fit=crop"
+                    alt="Modern Design">
+            </div>
+            <div class="item" style="--i: 8" data-title="Urban Innovation"
+                data-description="Innovative urban planning and design showcasing the future of city development and architecture."
+                data-url="https://www.elementpack.pro/">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=600&fit=crop"
+                    alt="Urban Innovation">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-btn" id="closeBtn">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalImg" src="" alt="">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalDescription"></p>
+                    <button class="modal-btn" id="modalBtn">
+                        <span>Learn More</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
