@@ -45,6 +45,11 @@ body {
     border-radius: 15px;
     overflow: hidden;
     cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.center-image:hover {
+    transform: translate(-50%, -50%) scale(1.05);
 }
 
 .center-image img {
@@ -58,14 +63,16 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) perspective(100rem) rotateX(-15deg);
-    width: 200px;
-    height: 200px;
+    transform: translate(-50%, -50%) perspective(2000px) rotateX(-15deg);
+    width: 150px;
+    height: 150px;
     transform-style: preserve-3d;
+    transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
     backface-visibility: hidden;
 }
 
+/* Gallery Items - Enhanced for circular layout */
 .slider .item {
     position: absolute;
     top: 50%;
@@ -74,25 +81,46 @@ body {
     height: 20rem;
     cursor: pointer;
     transform-style: preserve-3d;
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
     transform-origin: center center;
     backface-visibility: visible;
-    opacity: 1;
+    opacity: 0.8;
+    transform: translate(-50%, -50%);
 }
 
 .slider .item img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    backface-visibility: visible;
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+/* Hover effect for items */
+.slider .item:hover {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+    z-index: 2;
+}
+
+.slider .item:hover img {
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.3);
+}
+
+/* Active item styles */
+.slider .item.active {
+    opacity: 1;
+    z-index: 10;
+}
+
+.slider .item.active img {
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.4);
+}
+
+/* Modern Modal Styles with Glassmorphism */
 .modal {
     display: none;
     position: fixed;
@@ -103,6 +131,8 @@ body {
     height: 100%;
     background: radial-gradient(circle at center, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.95) 100%);
     backdrop-filter: blur(20px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .modal::before {
@@ -115,10 +145,23 @@ body {
     background: radial-gradient(circle at 30% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 70% 50%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
     pointer-events: none;
+    animation: modalBgFloat 10s ease-in-out infinite;
+}
+
+@keyframes modalBgFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateY(-20px) scale(1.1);
+        opacity: 0.8;
+    }
 }
 
 .modal.show {
     display: flex;
+    opacity: 1;
     align-items: center;
     justify-content: center;
     position: fixed;
@@ -146,8 +189,15 @@ body {
         0 25px 50px rgba(0,0,0,0.4),
         0 15px 35px rgba(0,0,0,0.3),
         inset 0 1px 0 rgba(255,255,255,0.2);
+    transform: scale(0.5) rotateY(10deg);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+.modal.show .modal-content {
+    transform: scale(1) rotateY(0deg);
+}
+
+/* Modern Close Button */
 .close-btn {
     position: absolute;
     top: 5px;
@@ -164,9 +214,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 10;
 }
 
+.close-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Modal Header */
 .modal-header {
     position: relative;
     height: 50px;
@@ -189,6 +248,7 @@ body {
     border-radius: 2px;
 }
 
+/* Modal Body */
 .modal-body {
     padding: 20px;
     background: rgba(0,0,0,0.2);
@@ -220,6 +280,11 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.modal-image:hover img {
+    transform: scale(1.05);
 }
 
 .modal-info {
@@ -257,6 +322,7 @@ body {
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: 
         0 8px 20px rgba(102, 126, 234, 0.4),
         0 4px 8px rgba(0,0,0,0.2);
@@ -264,6 +330,29 @@ body {
     overflow: hidden;
 }
 
+.modal-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.modal-btn:hover::before {
+    left: 100%;
+}
+
+.modal-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 15px 35px rgba(102, 126, 234, 0.6),
+        0 8px 15px rgba(0,0,0,0.3);
+}
+
+/* Navigation Controls */
 .nav-controls {
     position: fixed;
     bottom: 30px;
@@ -274,6 +363,7 @@ body {
     z-index: 100;
 }
 
+/* Progress Indicator */
 .progress-indicator {
     position: fixed;
     bottom: 100px;
@@ -290,12 +380,18 @@ body {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.3);
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .progress-dot.active {
     background: rgba(255, 255, 255, 0.9);
     transform: scale(1.2);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.progress-dot:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: scale(1.1);
 }
 
 .nav-btn {
@@ -306,7 +402,13 @@ body {
     border-radius: 25px;
     cursor: pointer;
     font-size: 14px;
+    transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 .auto-rotate-btn {
@@ -316,9 +418,23 @@ body {
 .auto-rotate-btn.active {
     background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
     box-shadow: 0 5px 15px rgba(240, 147, 251, 0.3);
+    animation: pulse-rotate-btn 2s ease-in-out infinite;
 }
 
-/* Responsive Design */
+@keyframes pulse-rotate-btn {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 5px 15px rgba(240, 147, 251, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(240, 147, 251, 0.5);
+    }
+}
+
+/* Responsive Design - Mobile First Approach */
+
+/* Large Tablets and Small Desktops */
 @media (max-width: 1024px) {
     .slider {
         transform: translate(-50%, -50%) perspective(120rem) rotateX(-15deg);
@@ -327,6 +443,7 @@ body {
     .slider .item {
         width: 13rem;
         height: 18rem;
+        transform: translate(-50%, -50%) rotateY(calc(var(--i) * 45deg)) translateZ(45rem);
     }
     
     .center-image {
@@ -335,6 +452,7 @@ body {
     }
 }
 
+/* Tablets */
 @media (max-width: 768px) {
     .banner {
         height: 100vh;
@@ -348,6 +466,7 @@ body {
     .slider .item {
         width: 11rem;
         height: 15rem;
+        transform: translate(-50%, -50%) rotateY(calc(var(--i) * 45deg)) translateZ(35rem);
     }
     
     .center-image {
@@ -356,6 +475,7 @@ body {
         border-radius: 20px;
     }
     
+    /* Modal Responsive */
     .modal-content {
         max-width: 90%;
         width: 400px;
@@ -390,6 +510,7 @@ body {
         font-size: 14px;
     }
     
+    /* Navigation Controls */
     .nav-controls {
         bottom: 25px;
         gap: 12px;
@@ -411,6 +532,7 @@ body {
     }
 }
 
+/* Large Mobile Phones */
 @media (max-width: 480px) {
     .banner {
         height: 100vh;
@@ -424,6 +546,7 @@ body {
     .slider .item {
         width: 9rem;
         height: 12rem;
+        transform: translate(-50%, -50%) rotateY(calc(var(--i) * 45deg)) translateZ(25rem);
     }
     
     .center-image {
@@ -432,6 +555,7 @@ body {
         border-radius: 15px;
     }
     
+    /* Modal Responsive */
     .modal-content {
         max-width: 95%;
         width: 320px;
@@ -472,6 +596,7 @@ body {
         border-radius: 20px;
     }
     
+    /* Navigation Controls */
     .nav-controls {
         bottom: 15px;
         flex-direction: row;
@@ -499,6 +624,7 @@ body {
     }
 }
 
+/* Small Mobile Phones */
 @media (max-width: 360px) {
     .slider {
         transform: translate(-50%, -50%) perspective(70rem) rotateX(-15deg);
@@ -507,6 +633,7 @@ body {
     .slider .item {
         width: 7rem;
         height: 10rem;
+        transform: translate(-50%, -50%) rotateY(calc(var(--i) * 45deg)) translateZ(20rem);
     }
     
     .center-image {
@@ -515,6 +642,7 @@ body {
         border-radius: 12px;
     }
     
+    /* Modal Responsive */
     .modal-content {
         max-width: 98%;
         width: 280px;
@@ -549,6 +677,7 @@ body {
         font-size: 12px;
     }
     
+    /* Navigation Controls */
     .nav-controls {
         bottom: 10px;
         gap: 6px;
@@ -572,6 +701,7 @@ body {
     }
 }
 
+/* Landscape Orientation */
 @media (max-height: 500px) and (orientation: landscape) {
     .banner {
         height: 100vh;
@@ -604,6 +734,7 @@ body {
     }
 }
 
+/* Touch Device Optimizations */
 @media (pointer: coarse) {
     .nav-btn {
         min-height: 44px;
@@ -641,6 +772,7 @@ body {
     }
 }
 
+/* High DPI/Retina Displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .modal-content {
         border-width: 0.5px;
@@ -648,5 +780,18 @@ body {
     
     .slider .item img {
         border-width: 0.5px;
+    }
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .modal::before {
+        animation: none;
     }
 } 
