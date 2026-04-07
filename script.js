@@ -17,7 +17,7 @@ class RotatingGallery {
         this.currentIndex = 0;
         this.itemCount = this.items.length;
         this.angleStep = 360 / this.itemCount;
-        this.radius = 300; // Adjusted radius for circle
+        this.radius = 440; // Increased radius for more spacing between items
         this.autoRotateInterval = null;
         this.isAutoRotating = false;
         this.wasAutoRotatingBeforeHover = false;
@@ -85,7 +85,7 @@ class RotatingGallery {
             gsap.set(item, {
                 x: x,
                 z: z,
-                rotationX: -15,
+                rotationX: -10,
                 rotationY: 0, // Keep items facing forward
                 transformOrigin: "center center",
                 // force3D: true
@@ -94,9 +94,10 @@ class RotatingGallery {
         
         // Set initial slider rotation
         gsap.set(this.slider, {
-            rotationX: -15,
+            rotationX: -10,
             rotationY: 0,
             transformOrigin: "center center",
+            animation: "autoRotate 30s linear infinite;",
             force3D: true
         });
         
@@ -228,7 +229,7 @@ class RotatingGallery {
             gsap.to(item, {
                 x: x,
                 z: z,
-                rotationY: 0, // Keep items facing forward
+                rotationY: itemAngle, // Keep items facing forward
                 rotationX: -15,
                 duration: 1.2,
                 ease: "power2.inOut",
@@ -295,25 +296,27 @@ class RotatingGallery {
         // Rotate the entire slider
         gsap.to(this.slider, {
             rotationX: -15,
-            rotationY: `+=${this.angleStep}`,
+            rotationY: 360,
             duration: 2.2,
-            ease: "power1.inOut"
+            ease: "power1.in",
         });
         
         // Move items in a circle while keeping them facing forward
         this.items.forEach((item, index) => {
             const itemAngle = (index * this.angleStep - this.currentRotation);
             const radian = (itemAngle * Math.PI) / 180;
+
+            console.log({itemAngle, radian,index});
             
-            // Calculate new circular position
-            const x = Math.cos(radian) * this.radius;
-            const z = Math.sin(radian) * this.radius;
+            // // Calculate new circular position
+            // const x = Math.cos(radian) * this.radius;
+            // const z = Math.sin(radian) * this.radius;
             
             gsap.to(item, {
                 x: x,
                 z: z,
-                rotationY: 0, // Keep items facing forward
-                rotationX: -15,
+                // rotationY: itemAngle, // Keep items facing forward
+                // rotationX: -15,
                 duration: 2.2,
                 ease: "power1.inOut",
                 force3D: true
